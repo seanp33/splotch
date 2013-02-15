@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<title>splotch</title>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+		<style>
+			body {
+				font-family: Monospace;
+				background-color: #f0f0f0;
+				margin: 0px;
+				overflow: hidden;
+			}
+		</style>
+	</head>
+
+    <style>
+        @import url(css/style.css);
+    </style>
+    <script type="text/javascript" src="js/lib/jquery/jquery-1.7.2.js"></script>
+    <script type="text/javascript" src="js/lib/three/three.js"></script>
+    <script src="js/lib/three/Detector.js"></script>
+    <script src="js/lib/three/stats.min.js"></script>
+    <script src="js/lib/three/TrackballControls.js"></script>
+    <script data-main="js/main" src="js/lib/requirejs/require-1.0.5.js"></script>
+    <script type="text/javascript">
+        (function(global) {
+            require.config({
+                paths: {
+                    'requirejs':'lib/requirejs',
+                    'signals':'lib/signals',
+                    'underscore':'lib/underscore'
+                }
+            });
+        })(this);
+
+    </script>
+
+</head>
+<body>
+  <!--<canvas id="canvas"></canvas>-->
+</body>
+</html>

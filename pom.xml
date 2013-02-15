@@ -1,0 +1,45 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>splotch</groupId>
+    <artifactId>splotch</artifactId>
+    <packaging>war</packaging>
+    <version>0.0.1-SNAPSHOT</version>
+    <name>splotch</name>
+    <dependencies>
+        <dependency>
+            <groupId>org.eclipse.jetty</groupId>
+            <artifactId>jetty-servlets</artifactId>
+            <version>7.6.8.v20121106</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.eclipse.jetty</groupId>
+                    <artifactId>jetty-client</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <finalName>splotch</finalName>
+        <plugins>
+            <plugin>
+                <groupId>org.mortbay.jetty</groupId>
+                <artifactId>jetty-maven-plugin</artifactId>
+                <version>8.1.1.v20120215</version>
+                <configuration>
+                    <stopKey>stop</stopKey>
+                    <stopPort>9999</stopPort>
+                    <webAppConfig>
+                        <serverClasses>
+                            <filter>org.mortbay.jetty.plus.jaas.</filter>
+                            <filter>org.mortbay.jetty.</filter>
+                        </serverClasses>
+                    </webAppConfig>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+
+</project>

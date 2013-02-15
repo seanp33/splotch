@@ -1,13 +1,14 @@
 define('splotch/ui/Viewport2',
     [
+        'splotch/ui/Avatar',
+        'splotch/ui/AvatarController',
         'signals/Signals'
     ],
 
-    function (Signal) {
+    function (Avatar, AvatarController, Signal) {
 
         var container, stats;
-        var camera, controls, scene, renderer, clock, plane;
-        var objects = [];
+        var camera, controls, scene, renderer, clock, plane, avatar;
 
 
         function animate() {
@@ -91,6 +92,12 @@ define('splotch/ui/Viewport2',
 
             window.addEventListener('resize', onWindowResize, false);
 
+            var mat = {color: 0xff66ff, linewidth: 3, transparent:true};
+            avatar = new Avatar({width:300, length:300}, new THREE.Vector3(0,0,0), mat, scene);
+            avatar.init();
+
+            avatarController = new AvatarController(avatar, renderer.domElement);
+            avatarController.init();
 
             animate();
         };

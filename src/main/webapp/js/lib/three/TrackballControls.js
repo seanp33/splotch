@@ -2,7 +2,7 @@
  * @author Eberhard Graether / http://egraether.com/
  */
 
-THREE.TrackballControls = function ( object, domElement ) {
+THREE.TrackballControls = function ( object, domElement, disableModifier) {
 
 	THREE.EventDispatcher.call( this );
 
@@ -11,6 +11,8 @@ THREE.TrackballControls = function ( object, domElement ) {
 
 	this.object = object;
 	this.domElement = ( domElement !== undefined ) ? domElement : document;
+
+    this.disableModifier = disableModifier;
 
 	// API
 
@@ -319,7 +321,7 @@ THREE.TrackballControls = function ( object, domElement ) {
 
 	function mousedown( event ) {
 
-		if ( _this.enabled === false ) return;
+		if ( disabled(event) ) return;
 
 		event.preventDefault();
 		event.stopPropagation();
@@ -351,7 +353,7 @@ THREE.TrackballControls = function ( object, domElement ) {
 
 	function mousemove( event ) {
 
-		if ( _this.enabled === false ) return;
+		if ( disabled(event) ) return;
 
 		event.preventDefault();
 		event.stopPropagation();
@@ -374,7 +376,7 @@ THREE.TrackballControls = function ( object, domElement ) {
 
 	function mouseup( event ) {
 
-		if ( _this.enabled === false ) return;
+		if ( disabled(event) ) return;
 
 		event.preventDefault();
 		event.stopPropagation();
@@ -411,7 +413,7 @@ THREE.TrackballControls = function ( object, domElement ) {
 
 	function touchstart( event ) {
 
-		if ( _this.enabled === false ) return;
+		if (disabled(event) ) return;
 
 		switch ( event.touches.length ) {
 
@@ -441,7 +443,7 @@ THREE.TrackballControls = function ( object, domElement ) {
 
 	function touchmove( event ) {
 
-		if ( _this.enabled === false ) return;
+		if ( disabled(event) ) return;
 
 		event.preventDefault();
 		event.stopPropagation();
@@ -471,7 +473,7 @@ THREE.TrackballControls = function ( object, domElement ) {
 
 	function touchend( event ) {
 
-		if ( _this.enabled === false ) return;
+		if ( disabled(event) ) return;
 
 		switch ( event.touches.length ) {
 
@@ -492,6 +494,10 @@ THREE.TrackballControls = function ( object, domElement ) {
 		_state = STATE.NONE;
 
 	}
+
+    function disabled(event){
+        return (_this.enabled === false || event[_this.disableModifier] === true);
+    }
 
 	this.domElement.addEventListener( 'contextmenu', function ( event ) { event.preventDefault(); }, false );
 

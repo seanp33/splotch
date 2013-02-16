@@ -1,4 +1,4 @@
-define([],
+define('splotch/ui/Avatar',[],
     function () {
 
         function initShape(size) {
@@ -15,11 +15,12 @@ define([],
             return new THREE.LineBasicMaterial(matConfig);
         }
 
-        function Avatar(size, position, matConfig, scene) {
+        function Avatar(size, position, matConfig, scene, center) {
             this.size = size;
             this.position = position;
             this.matConfig = matConfig;
             this.scene = scene;
+            this.center = center || false;
             this.line = null;
             this.material = null;
         }
@@ -31,7 +32,12 @@ define([],
             this.line.position = this.position;
             this.line.rotation.set(Math.PI / 2, 0, 0);
             this.line.scale.set(1,1,1);
+            if(this.center) THREE.GeometryUtils.center(this.line.geometry);
             this.scene.add(this.line);
+        }
+
+        Avatar.prototype.destroy = function(){
+            this.scene.remove(this.line);
         }
 
         return Avatar;

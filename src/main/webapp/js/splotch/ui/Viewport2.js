@@ -37,18 +37,9 @@ define('splotch/ui/Viewport2',
             container = document.createElement('div');
             document.body.appendChild(container);
 
-            camera = new THREE.PerspectiveCamera(70, window.innerWidth / window.innerHeight, 1, 10000);
+            camera = new THREE.PerspectiveCamera(40, window.innerWidth / window.innerHeight, 1, 10000);
             camera.position.z = 1500;
             camera.position.y = 800;
-
-            controls = new THREE.TrackballControls(camera);
-            controls.rotateSpeed = 1.0;
-            controls.zoomSpeed = 1.2;
-            controls.panSpeed = 0.8;
-            controls.noZoom = false;
-            controls.noPan = false;
-            controls.staticMoving = true;
-            controls.dynamicDampingFactor = 0.3;
 
             scene = new THREE.Scene();
 
@@ -92,12 +83,23 @@ define('splotch/ui/Viewport2',
 
             window.addEventListener('resize', onWindowResize, false);
 
-            var mat = {color: 0xff66ff, linewidth: 3, transparent:true};
-            avatar = new Avatar({width:300, length:300}, new THREE.Vector3(0,0,0), mat, scene);
+            var mat = {color: 0xff66ff, linewidth: 1, transparent: true};
+            avatar = new Avatar({width: 300, length: 300}, new THREE.Vector3(0, 0, 0), mat, scene, true);
             avatar.init();
 
-            avatarController = new AvatarController(avatar, renderer.domElement);
+            //avatar, ground, camera, scene, domElement, activatorKey
+            avatarController = new AvatarController(avatar, plane, camera, scene, renderer.domElement, 'shiftKey');
             avatarController.init();
+
+            // adding nav controls last to give AvatarController first dibs
+            controls = new THREE.TrackballControls(camera, document, 'shiftKey');
+            controls.rotateSpeed = 1.0;
+            controls.zoomSpeed = 1.2;
+            controls.panSpeed = 0.8;
+            controls.noZoom = false;
+            controls.noPan = false;
+            controls.staticMoving = true;
+            controls.dynamicDampingFactor = 0.3;
 
             animate();
         };

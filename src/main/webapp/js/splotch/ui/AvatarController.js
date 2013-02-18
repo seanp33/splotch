@@ -17,7 +17,7 @@ define('splotch/ui/AvatarController', ['splotch/ui/Avatar', 'signals/Signals'],
 
                     event.preventDefault();
 
-                    console.log('handling mouse move');
+                    //console.log('handling mouse move');
 
                     mouse.x = ( event.clientX / window.innerWidth ) * 2 - 1;
                     mouse.y = -( event.clientY / window.innerHeight ) * 2 + 1;
@@ -30,11 +30,11 @@ define('splotch/ui/AvatarController', ['splotch/ui/Avatar', 'signals/Signals'],
                         var intersects = raycaster.intersectObject(ground);
                         if (intersects.length > 0) {
                             var currentSelectionPoint = intersects[0].point;
-                            //selectionAvatar.line.worldToLocal(currentSelectionPoint);
-                            //selectionAvatar.line.geometry.vertices[2] = currentSelectionPoint;
-                            //selectionAvatar.line.geometry.vertices[1] = currentSelectionPoint;
-                            //selectionAvatar.line  .geometry.verticesNeedUpdate = true;
-                            selectionAvatar.line.scale.add(new THREE.Vector3(.1,.1));
+                            selectionAvatar.line.worldToLocal(currentSelectionPoint);
+                            selectionAvatar.line.geometry.vertices[1].x = currentSelectionPoint.x;
+                            selectionAvatar.line.geometry.vertices[2] = currentSelectionPoint;
+                            selectionAvatar.line.geometry.vertices[3].y = currentSelectionPoint.y;
+                            selectionAvatar.line .geometry.verticesNeedUpdate = true;
                         }
                     }
 
